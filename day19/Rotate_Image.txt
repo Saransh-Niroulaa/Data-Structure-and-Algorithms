@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        //swap the diagonally opposite element to get the transpose
+        int n = matrix.size();
+        for(int r = 0; r < n; r++) {
+            //diagonal element stay where they were so no need to swap them
+            for(int c = r + 1; c < n; c++) {
+                swap(matrix[r][c], matrix[c][r]);
+            }
+        }
+        //then reverse each row to get the result matrix
+        for(int r = 0; r < n; r++) {
+            reverse(matrix[r].begin(), matrix[r].end());
+        }
+    }
+};
