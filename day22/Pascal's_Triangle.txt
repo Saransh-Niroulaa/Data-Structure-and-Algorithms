@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> generateRow(int row) {
+        long long value = 1;
+        vector<int> currRow;
+        currRow.push_back(1);
+        for(int col = 1; col < row; col++) {
+            value = value * (row - col);
+            value = value / col;
+            currRow.push_back(value);
+        }
+        return currRow;
+    }
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> pascal;
+        for(int row = 1; row <= numRows; row++) {
+            pascal.push_back(generateRow(row));
+        }
+        return pascal;
+    }
+};
