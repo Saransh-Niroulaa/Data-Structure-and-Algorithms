@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int low = 0;
+        int high = nums.size() - 1;
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+            if(nums[mid] == target) {
+                return true;
+            }
+            //one extra condition from the part one this srinks the array  from both side if the pointers are equal value.
+            if (nums[low] == nums[mid] && nums[mid] == nums[high]) {
+                low++;
+                high--;
+            } 
+            //condition of left half being sorted
+            else if(nums[low] <= nums[mid]) {
+                //Check if target lies inside lelft sorted half.
+                if(target >= nums[low] && target < nums[mid]) {
+                    high = mid - 1;
+                }
+                else {
+                    low = mid + 1;
+                }
+            }
+            //condition of right half being sorted
+            else {
+                //Check if target lies inside right sorted half.
+                if(target > nums[mid] && target <= nums[high]) {
+                    low = mid + 1;
+                }
+                else {
+                    high = mid - 1;
+                }
+            }
+        }
+        return false;
+    }
+};
