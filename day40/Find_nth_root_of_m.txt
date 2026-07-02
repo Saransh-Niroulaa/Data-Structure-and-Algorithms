@@ -1,0 +1,30 @@
+class Solution {
+public:
+    long long power(long long base, int exp, int m) {
+        long long ans = 1;
+        while(exp > 0){
+            if (ans > m / base) return m + 1;
+            ans *= base;
+            exp--;
+        }
+        return ans;
+    }
+
+    int nthRoot(int n, int m) {
+        if (m == 0) return 0;
+        if (m == 1) return 1;
+
+        int low = 1, high = m;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            long long val = power(mid, n, m);
+
+            if (val == m) return mid;
+            if (val < m) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return -1;
+    }
+};
