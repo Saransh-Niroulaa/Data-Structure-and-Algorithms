@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool canShip(vector<int>& wt, int d, int cap) {
+        int days = 1;
+        int load = 0;
+
+        for (int i = 0; i < wt.size(); i++) {
+            if (load + wt[i] > cap) {
+                days++;
+                load = wt[i];
+            } else {
+                load += wt[i];
+            }
+        }
+
+        return days <= d;
+    }
+
+    int shipWithinDays(vector<int>& wt, int d) {
+        int low = *max_element(wt.begin(), wt.end());
+
+        int high = 0;
+        for (int i = 0; i < wt.size(); i++) {
+            high += wt[i];
+        }
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (canShip(wt, d, mid))
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+
+        return low;
+    }
+};
