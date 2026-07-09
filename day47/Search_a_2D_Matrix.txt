@@ -1,0 +1,23 @@
+class Solution {
+public
+    bool searchMatrix(vectorvectorint& matrix,int target) {
+        int m=matrix.size();
+        int n=matrix[0].size();
+
+        int low=0,high=mn-1;
+        while(low=high){
+            int mid=low+(high-low)2;
+            int row=midn;
+            int col=mid%n;
+
+            if(matrix[row][col]==target)
+                return true;
+            if(matrix[row][col]target)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+
+        return false;
+    }
+};
