@@ -1,0 +1,41 @@
+class Solution {
+public:
+    // Returns the row having the maximum element
+    // in the given column.
+    int maxRow(vector<vector<int>>& mat, int col) {
+        int row = 0;
+        for(int i = 1; i < mat.size(); i++) {
+            if(mat[i][col] > mat[row][col]) {
+                row = i;
+            }
+        }
+        return row;
+    }
+    vector<int> findPeakGrid(vector<vector<int>>& mat) {
+        int rows = mat.size();
+        int cols = mat[0].size();
+        int low = 0;
+        int high = cols - 1;
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+            // Largest element in this column
+            int row = maxRow(mat, mid);
+            int left =(mid > 0) ? mat[row][mid - 1] : -1;
+            int right =(mid < cols - 1) ? mat[row][mid + 1] : -1;
+            // Peak found
+            if(mat[row][mid] > left &&
+               mat[row][mid] > right) {
+                return {row, mid};
+            }
+            // Peak lies on the left side
+            else if(left > mat[row][mid]) {
+                high = mid - 1;
+            }
+            // Peak lies on the right side
+            else {
+                low = mid + 1;
+            }
+        }
+        return {-1, -1};
+    }
+};
