@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool possible(vector<int> &arr, int student, long long pageCnt){
+        int studentCnt = 1;
+        long long allocatedCnt = 0;
+        for (int i=0;i<arr.size();i++){
+            if (allocatedCnt + arr[i] <= pageCnt){
+                allocatedCnt += arr[i];
+            }else{
+                studentCnt++;
+                allocatedCnt = arr[i];
+                if (studentCnt > student)
+                    return false;
+            }
+        }
+        return true;
+    }
+    int findPages(vector<int> &arr, int k){
+        if (k > arr.size())return -1;
+        long long low = *max_element(arr.begin(), arr.end());
+        long long high = accumulate(arr.begin(), arr.end(), 0LL);
+        while (low <= high){
+            long long mid = low + (high - low) / 2;
+            if (possible(arr, k, mid)){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+        return (int)low;
+    }
+};
