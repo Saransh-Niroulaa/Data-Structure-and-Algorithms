@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char, int> freq;
+        // Count frequency
+        for (char c : s)
+            freq[c]++;
+        int n = s.size();
+        // Bucket where index = frequency
+        vector<vector<char>> bucket(n + 1);
+        for (auto &it : freq)
+            bucket[it.second].push_back(it.first);
+        string ans;
+        // Traverse from highest frequency
+        for (int i = n; i >= 1; i--) {
+            for (char c : bucket[i]) {
+                ans.append(i, c);   // append character i times
+            }
+        }
+        return ans;
+    }
+};
