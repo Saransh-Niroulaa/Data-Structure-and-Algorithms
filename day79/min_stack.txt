@@ -1,0 +1,45 @@
+class MinStack {
+public:
+    stack<long long> st;
+    long long mini;
+    MinStack() {
+        mini = LLONG_MAX;
+    }
+    void push(int value) {
+        long long val = value;
+        if (st.empty()) {
+            st.push(val);
+            mini = val;
+        }
+        else if (val >= mini) {
+            st.push(val);
+        }
+        else {
+            // Encode the previous minimum
+            st.push(2LL * val - mini);
+            mini = val;
+        }
+    }
+    void pop() {
+        if (st.empty()) return;
+        long long val = st.top();
+        st.pop();
+        // Encoded value means minimum is changing
+        if (val < mini) {
+            mini = 2LL * mini - val;
+        }
+    }
+    int top() {
+        if (st.empty()) return -1;
+        long long val = st.top();
+        // If encoded, actual top is current minimum
+        if (val < mini) {
+            return (int)mini;
+        }
+        return (int)val;
+    }
+    int getMin() {
+        if (st.empty()) return -1;
+        return (int)mini;
+    }
+};
