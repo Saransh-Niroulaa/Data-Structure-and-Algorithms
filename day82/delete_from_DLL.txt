@@ -1,0 +1,24 @@
+class Solution {
+public:
+    Node* delPos(Node* head, int position) {
+        if (head == nullptr) {
+            return nullptr;
+        }
+        Node* current = head;
+        for (int i = 1; i < position; i++) {
+            current = current->next;
+        }
+        if (current->prev == nullptr) {
+            head = current->next;
+            if (head != nullptr) {
+                head->prev = nullptr;
+            }
+            return head;
+        }
+        current->prev->next = current->next;
+        if (current->next != nullptr) {
+            current->next->prev = current->prev;
+        }
+        return head;
+    }
+};
