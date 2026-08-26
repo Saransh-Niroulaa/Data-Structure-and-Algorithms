@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int n = fruits.size() ;
+        int l = 0 ;
+        int r = 0 ;
+        vector<int> cnt(n+1, 0) ;
+        int ans = 0 ;
+        int numFruits = 0 ;
+        while(r<n){
+            if(cnt[fruits[r]]==0){
+                numFruits++; 
+            }
+            cnt[fruits[r]]++ ;
+            while(numFruits > 2){
+                cnt[fruits[l]]--; 
+                if(cnt[fruits[l]]==0)
+                    numFruits-- ;
+                l++ ;
+            }
+            ans = max(ans, r-l+1) ;
+            r++ ;
+        }
+        return ans ;
+    }
+};
