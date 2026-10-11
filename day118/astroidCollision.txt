@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& a) {
+        vector<int> s;
+        for (int x : a) {
+            while (!s.empty() && s.back() > 0 && x < 0) {
+                if (s.back() < -x) s.pop_back();
+                else if (s.back() == -x) {
+                    s.pop_back();
+                    x = 0;
+                } else x = 0;
+            }
+            if (x) s.push_back(x);
+        }
+        return s;
+    }
+};
