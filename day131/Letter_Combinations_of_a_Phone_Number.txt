@@ -1,0 +1,23 @@
+class Solution {
+    vector<string> ans{};
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> mapping {
+            "abc", "def", "ghi", "jkl",
+            "mno", "pqrs", "tuv", "wxyz"
+        };
+                rec(digits, "", 0, mapping);
+        return ans;
+    }
+    void rec(string& digits, string current, int it, vector<string>& mapping) {
+        if (it >= digits.length()) {
+            ans.push_back(current);
+            return;
+        }
+        int num = digits[it] - '2';
+
+        for (const char& c : mapping[num]) {
+            rec(digits, current + c, it + 1, mapping);
+        }
+    }
+};
