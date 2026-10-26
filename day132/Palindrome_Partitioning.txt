@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<string>> result;
+    vector<string> path;
+    void backtrack(int start, string& s, vector<vector<bool>>& isPal) {
+        if (start == s.size()) {
+            result.push_back(path);
+            return;
+        }
+        for (int end = start; end < s.size(); end++) {
+            if (isPal[start][end]) {
+                path.push_back(s.substr(start, end - start + 1));
+                backtrack(end + 1, s, isPal);
+                path.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+        int n = s.size();
+        vector<vector<bool>> isPal(n, vector<bool>(n, false));
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                if (s[i] == s[j] && (j - i <= 2 || isPal[i + 1][j - 1]))
+                    isPal[i][j] = true;
+            }
+        }
+        backtrack(0, s, isPal);
+        return result;
+    }
+};
